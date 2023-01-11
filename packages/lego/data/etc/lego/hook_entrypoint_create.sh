@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-. /etc/lego/hook_env
+. /etc/lego/env
 
 echo "Suc create crt for ${LEGO_CERT_DOMAIN}"
 echo "LEGO_ACCOUNT_EMAIL : ${LEGO_ACCOUNT_EMAIL}"
@@ -9,9 +9,11 @@ echo "LEGO_CERT_DOMAIN   : ${LEGO_CERT_DOMAIN}"
 echo "LEGO_CERT_PATH     : ${LEGO_CERT_PATH}"
 echo "LEGO_CERT_KEY_PATH : ${LEGO_CERT_KEY_PATH}"
 
-LEGO_HOOK_SCRIPT="${LEGO_PATH}/hooks/${LEGO_CERT_DOMAIN_FILENAME}_create.sh"
-if [ -f "${LEGO_HOOK_SCRIPT}" ]; then
-  sh -c "${LEGO_HOOK_SCRIPT}"
+domain_file_name="$(echo "${LEGO_CERT_DOMAIN}" | sed "s/\*/_/g")"
+hook_script="${LEGO_PATH}/hooks/${domain_file_name}.sh"
+if [ -f "${hook_script}" ]; then
+  echo "Run hook script ${hook_script}"
+  sh "${hook_script}" create "${LEGO_CERT_PATH}" "${LEGO_CERT_KEY_PATH}"
 else
-  echo "Hook script ${LEGO_HOOK_SCRIPT} not found"
+  echo "Hook script ${hook_script} not found"
 fi
