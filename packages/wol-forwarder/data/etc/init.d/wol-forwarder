@@ -4,12 +4,16 @@ START=99
 EXTRA_COMMANDS="status"
 EXTRA_HELP="        status          Service status"
 
+config_get() {
+  uci get "$1" 2>/dev/null || echo "$2"
+}
+
 start() {
   is_running && stop && sleep 1
-  WOL_ADDR="$(uci get wol-forwarder.main.addr)"
-  WOL_PORT="$(uci get wol-forwarder.main.port)"
-  WOL_BADDR="$(uci get wol-forwarder.main.baddr)"
-  WOL_BPORT="$(uci get wol-forwarder.main.bport)"
+  WOL_ADDR="$(config_get "wol-forwarder.main.addr" "0.0.0.0")"
+  WOL_PORT="$(config_get "wol-forwarder.main.port" "1999")"
+  WOL_BADDR="$(config_get "wol-forwarder.main.baddr" "255.255.255.255")"
+  WOL_BPORT="$(config_get "wol-forwarder.main.bport" "9")"
   /usr/bin/wol-forwarder \
     -addr "${WOL_ADDR}" \
     -port "${WOL_PORT}" \
