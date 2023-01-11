@@ -17,12 +17,16 @@ start() {
     /usr/bin/lego_wrapper "${domain}" >>/var/log/lego_${domain_file_name}.log 2>&1 &
     echo "${LEGO_CRON_CONF} /usr/bin/lego_wrapper \"${domain}\" >>/var/log/lego_${domain_file_name}.log 2>&1" >>/etc/crontabs/root
   done </etc/lego/domains
-  /etc/init.d/cron reload
+  if [ "$(/etc/init.d/cron status)" = "running" ]; then
+    /etc/init.d/cron reload
+  fi
 }
 
 stop() {
   remove_jobs
-  /etc/init.d/cron reload
+  if [ "$(/etc/init.d/cron status)" = "running" ]; then
+    /etc/init.d/cron reload
+  fi
 }
 
 restart() {
