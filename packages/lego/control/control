@@ -1,0 +1,7 @@
+Package: lego
+Version: 2023.1.11
+Description: Go acme client lego
+Architecture: x86_64
+Maintainer: xiaozhuai <798047000@qq.com>
+Priority: optional
+Depends:

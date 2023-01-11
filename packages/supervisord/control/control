@@ -1,0 +1,7 @@
+Package: supervisord
+Version: 2023.1.11
+Description: Supervisord go
+Architecture: x86_64
+Maintainer: xiaozhuai <798047000@qq.com>
+Priority: optional
+Depends:

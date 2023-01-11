@@ -1,0 +1,7 @@
+Package: wol-forwarder
+Version: 2022.12.14
+Description: Forward Wake-on-Lan magic packet
+Architecture: x86_64
+Maintainer: xiaozhuai <798047000@qq.com>
+Priority: optional
+Depends:

@@ -1,0 +1,46 @@
+#!/bin/sh
+set -e
+
+. /etc/lego/env
+
+if [ -z "${LEGO_EMAIL}" ]; then
+  echo "LEGO_EMAIL is empty, please specify it in ${LEGO_ROOT}/env"
+fi
+
+lego_create() {
+  domain="$1"
+  hook="$2"
+  /usr/bin/lego -a \
+    --path "${LEGO_PATH}" \
+    --email "${LEGO_EMAIL}" \
+    ${LEGO_CHALLENGE_OPTIONS} \
+    --domains "${domain}" \
+    run \
+    --run-hook="${hook}"
+}
+
+lego_renew() {
+  domain="$1"
+  hook="$2"
+  /usr/bin/lego -a \
+    --path "${LEGO_PATH}" \
+    --email "${LEGO_EMAIL}" \
+    ${LEGO_CHALLENGE_OPTIONS} \
+    --domains "${domain}" \
+    renew \
+    --days "${LEGO_RENEW_DAYS}" \
+    --renew-hook="${hook}"
+}
+
+domain="$1"
+domain_file_name="$(echo "${domain}" | sed "s/\*/_/g")"
+crt_file="${LEGO_PATH}/certificates/${domain_file_name}.crt"
+if [ ! -e "${crt_file}" ]; then
+  echo "Create crt for ${domain}"
+  hook="${LEGO_PATH}/hook_entrypoint_create.sh"
+  lego_create "${domain}" "${hook}"
+else
+  echo "Renew crt for ${domain}"
+  hook="${LEGO_PATH}/hook_entrypoint_renew.sh"
+  lego_renew "${domain}" "${hook}"
+fi

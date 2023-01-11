@@ -1,0 +1,42 @@
+#!/bin/sh /etc/rc.common
+
+START=14
+EXTRA_COMMANDS="status"
+EXTRA_HELP="        status          Service status"
+
+start() {
+  dnsmasqconfdir="$(uci get dhcp.@dnsmasq[0].confdir 2>/dev/null || echo '/tmp/dnsmasq.d')"
+  [ ! -d "$dnsmasqconfdir" ] && mkdir -p "$dnsmasqconfdir"
+  cp -f /etc/dnsmasq_dhcp_boot.conf "$dnsmasqconfdir/dnsmasq_dhcp_boot.conf"
+  if [ "$(/etc/init.d/dnsmasq status)" = "running" ]; then
+    echo "restart dnsmasq"
+    /etc/init.d/dnsmasq restart
+  fi
+}
+
+stop() {
+  dnsmasqconfdir="$(uci get dhcp.@dnsmasq[0].confdir 2>/dev/null || echo '/tmp/dnsmasq.d')"
+  [ ! -d "$dnsmasqconfdir" ] && mkdir -p "$dnsmasqconfdir"
+  rm -f "$dnsmasqconfdir/dnsmasq_dhcp_boot.conf"
+  if [ "$(/etc/init.d/dnsmasq status)" = "running" ]; then
+    echo "restart dnsmasq"
+    /etc/init.d/dnsmasq restart
+  fi
+}
+
+restart() {
+  start
+}
+
+reload() {
+  restart
+}
+
+status() {
+  if [ "$(/etc/init.d/dnsmasq status)" = "running" ]; then
+    dnsmasqconfdir="$(uci get dhcp.@dnsmasq[0].confdir 2>/dev/null || echo '/tmp/dnsmasq.d')"
+    [ -f "$dnsmasqconfdir/dnsmasq_dhcp_boot.conf" ] && echo "running" || echo "inactive" && false
+  else
+    echo "inactive" && false
+  fi
+}

@@ -1,0 +1,7 @@
+. /etc/lego/env
+
+export LEGO_ACCOUNT_EMAIL
+export LEGO_CERT_DOMAIN
+export LEGO_CERT_PATH
+export LEGO_CERT_KEY_PATH
+export LEGO_CERT_DOMAIN_FILENAME="$(echo "${LEGO_CERT_DOMAIN}" | sed "s/\*/_/g")"

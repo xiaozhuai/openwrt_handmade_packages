@@ -1,0 +1,41 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+EXTRA_COMMANDS="status"
+EXTRA_HELP="        status          Service status"
+
+start() {
+  [ ! -d "/etc/supervisor.d" ] && mkdir -p "/etc/supervisor.d"
+  is_running && stop && sleep 1
+  /usr/bin/supervisord -d -c /etc/supervisord.conf
+}
+
+stop() {
+  /usr/bin/supervisord ctl shutdown >/dev/null
+}
+
+restart() {
+  start
+}
+
+reload() {
+  /usr/bin/supervisord ctl reload
+}
+
+is_running() {
+  pidfile="/var/run/supervisord.pid"
+  if [ -f "/var/run/supervisord.pid" ]; then
+    pid="$(cat $pidfile)"
+    if [ -d "/proc/$pid" ]; then
+      true
+    else
+      false
+    fi
+  else
+    false
+  fi
+}
+
+status() {
+  is_running && echo "running" || echo "inactive" && false
+}

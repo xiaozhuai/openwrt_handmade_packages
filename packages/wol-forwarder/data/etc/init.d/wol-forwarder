@@ -1,0 +1,39 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+EXTRA_COMMANDS="status"
+EXTRA_HELP="        status          Service status"
+
+start() {
+  is_running && stop && sleep 1
+  WOL_ADDR="$(uci get wol-forwarder.main.addr)"
+  WOL_PORT="$(uci get wol-forwarder.main.port)"
+  WOL_BADDR="$(uci get wol-forwarder.main.baddr)"
+  WOL_BPORT="$(uci get wol-forwarder.main.bport)"
+  /usr/bin/wol-forwarder \
+    -addr "${WOL_ADDR}" \
+    -port "${WOL_PORT}" \
+    -baddr "${WOL_BADDR}" \
+    -bport "${WOL_BPORT}" \
+    >/var/log/wol-forwarder.log &
+}
+
+stop() {
+  killall /usr/bin/wol-forwarder >/dev/null 2>&1
+}
+
+restart() {
+  start
+}
+
+reload() {
+  restart
+}
+
+is_running() {
+  pidof /usr/bin/wol-forwarder >/dev/null
+}
+
+status() {
+  is_running && echo "running" || echo "inactive" && false
+}

@@ -1,0 +1,7 @@
+export LEGO_PATH="/etc/lego"
+export LEGO_RENEW_DAYS=30
+export LEGO_CRON_CONF="0 4 * * *"
+export LEGO_CHALLENGE_OPTIONS="--dns alidns"
+# export LEGO_EMAIL=""
+# export ALICLOUD_ACCESS_KEY=""
+# export ALICLOUD_SECRET_KEY=""
