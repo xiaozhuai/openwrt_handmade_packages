@@ -7,6 +7,8 @@ if [ -z "${LEGO_EMAIL}" ]; then
   echo "LEGO_EMAIL is empty, please specify it in ${LEGO_ROOT}/env"
 fi
 
+[ ! -d "${LEGO_PATH}/hooks" ] && mkdir -p "${LEGO_PATH}/hooks"
+
 lego_create() {
   domain="$1"
   hook="$2"
