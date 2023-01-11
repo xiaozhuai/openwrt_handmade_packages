@@ -79,7 +79,7 @@ popd
 
 pushd "${cache_dir}"
 rm -f "${dist_dir}/${pkg_name}_${pkg_version}_${pkg_arch}.ipk"
-tar --numeric-owner --group=0 --owner=0 -cf "${dist_dir}/${pkg_name}_${pkg_version}_${pkg_arch}.ipk" debian-binary control.tar.gz data.tar.gz
+tar --numeric-owner --group=0 --owner=0 -czf "${dist_dir}/${pkg_name}_${pkg_version}_${pkg_arch}.ipk" debian-binary control.tar.gz data.tar.gz
 rm debian-binary control.tar.gz data.tar.gz
 popd
 
