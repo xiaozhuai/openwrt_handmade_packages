@@ -12,10 +12,13 @@ lib/plural_formula.c: lib/plural_formula.y contrib/lemon
 lib/lmo.c: lib/plural_formula.c
 
 clean:
-	$(RM) -f contrib/lemon lib/*.o lib/plural_formula.c lib/plural_formula.h *.o po2lmo
+	$(RM) contrib/lemon lib/*.o lib/plural_formula.c lib/plural_formula.h *.o po2lmo
 
 po2lmo: po2lmo.o lib/lmo.o lib/plural_formula.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
 install: po2lmo
 	$(INSTALL) -m 755 po2lmo $(PREFIX)
+
+uninstall:
+	$(RM) "$(PREFIX)/po2lmo"
