@@ -7,3 +7,6 @@
 [submodule "packages/lego/lego"]
 	path = packages/lego/lego
 	url = https://github.com/go-acme/lego
+[submodule "packages/luci-app-aliddns/luci-app-aliddns"]
+	path = packages/luci-app-aliddns/luci-app-aliddns
+	url = https://github.com/honwen/luci-app-aliddns

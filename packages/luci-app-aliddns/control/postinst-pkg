@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ -z "${IPKG_INSTROOT}" ]; then
+	if [ -f /etc/uci-defaults/luci-aliddns ]; then
+		( . /etc/uci-defaults/luci-aliddns ) && rm -f /etc/uci-defaults/luci-aliddns
+	fi
+	rm -rf /tmp/luci-indexcache /tmp/luci-modulecache
+fi
+exit 0

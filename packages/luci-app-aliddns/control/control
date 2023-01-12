@@ -1,0 +1,11 @@
+Package: luci-app-aliddns
+Version: 0.4.0-1
+Depends: libc, openssl-util, curl
+Source: /root/github/chenhw2/luci-app-aliddns
+License: MIT
+LicenseFiles: LICENSE
+Section: luci
+Maintainer: chenhw2 <https://github.com/chenhw2/>
+Architecture: all
+Installed-Size: 4374
+Description:  LuCI Support for ALiDDNS.
