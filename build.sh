@@ -65,6 +65,10 @@ fi
 rm -f "${cache_dir}/debian-binary"
 cp -f debian-binary "${cache_dir}"/
 
+if [ -f "Makefile" ]; then
+  make
+fi
+
 pushd "control"
 rm -f "${cache_dir}/control.tar.gz"
 tar --numeric-owner --group=0 --owner=0 -czf "${cache_dir}/control.tar.gz" ./*
