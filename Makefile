@@ -6,7 +6,7 @@ dist_dir=dist
 TOOLS_PATH := $(PWD)/tools
 PATH := $(PATH):$(PWD)/tools
 
-all: po2lmo dnsmasq-dhcp-boot lego supervisord wol-forwarder
+all: po2lmo dnsmasq-dhcp-boot lego supervisord wol-forwarder luci-app-aliddns
 
 help:
 	@echo "targets: dnsmasq-dhcp-boot lego supervisord wol-forwarder"
