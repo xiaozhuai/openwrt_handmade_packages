@@ -18,11 +18,11 @@
 
 通过`lego`客户端实现acme自动获取ssl证书
 
-在`/etc/lego/env`中配置计划任务，let's encrypt账号，验证方式等。
+在`/etc/lego/env`中配置计划任务，Let's Encrypt 账号邮箱，验证方式等。
 
 在`/etc/lego/domains`中添加域名，一行一个，注意文件最后必须保留一个空行。
 
-在`/etc/lego/hooks`中添加`你的域名.sh`钩子脚本。
+在`/etc/lego/hooks`中添加`你的域名.sh`钩子脚本。(如果是通配符域名，请将钩子脚本文件名中的`*`改为`_`)
 
 脚本接受3个参数，依次是：
 
