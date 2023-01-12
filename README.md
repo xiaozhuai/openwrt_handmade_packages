@@ -38,4 +38,4 @@ go实现的`supervisord`, 在`/etc/supervisor.d`中添加配置文件
 
 ### wol-forwarder
 
-网络启动魔术包转发, 配置`/etc/config/wol-forwarder`
+WOL远程开机魔术包转发, 配置`/etc/config/wol-forwarder`
