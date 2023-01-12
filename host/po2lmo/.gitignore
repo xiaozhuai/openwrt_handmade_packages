@@ -1,0 +1,5 @@
+*.o
+contrib/lemon
+lib/plural_formula.c
+lib/plural_formula.h
+po2lmo
