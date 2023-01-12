@@ -6,6 +6,18 @@
 
 可以在release页面下载ipk包
 
+## QA
+
+### 为什么要made by hand而不是从OpenWRT源码或SDK构建？
+
+因为源码环境太重了，即使是SDK也太复杂，此项目创建了一个足够轻量的OpenWRT包构建环境。
+
+Keep simple and stupid.
+
+### 为什么某些包安装后找不到任何页面？
+
+因为部分包本身就不支持用户界面，例如: `supervisord`，这些包更适合专业人员而不是小白用户。
+
 ## 应用
 
 ### dnsmasq-dhcp-boot
