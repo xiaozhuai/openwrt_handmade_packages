@@ -12,6 +12,7 @@ remove_jobs() {
 
 start() {
   remove_jobs
+  [ ! -f /etc/crontabs/root ] && mkdir -p /etc/crontabs && touch /etc/crontabs/root
   while IFS= read -r domain; do
     domain="$(echo "${domain}" | tr -d '\r')"
     domain_file_name="$(echo "${domain}" | sed "s/\*/_/g")"
@@ -39,5 +40,9 @@ reload() {
 }
 
 status() {
-  grep -q lego_wrapper /etc/crontabs/root && echo "running" || echo "inactive" && false
+  if [ "$(/etc/init.d/cron status)" != "running" ]; then
+    echo "inactive" && false
+  else
+    grep -q lego_wrapper /etc/crontabs/root && echo "running" || echo "inactive" && false
+  fi
 }
