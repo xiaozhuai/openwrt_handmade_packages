@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+[ ! -f "/etc/config/wol-forwarder" ]; then
+  touch /etc/config/wol-forwarder
+  uci set wol-forwarder.main=main
+fi
+
+uci -q batch <<-EOF >/dev/null
+	set wol-forwarder.main.addr="0.0.0.0"
+	set wol-forwarder.main.port="1999"
+	set wol-forwarder.main.baddr="255.255.255.255"
+	set wol-forwarder.main.bport="9"
+	commit wol-forwarder
+EOF
+

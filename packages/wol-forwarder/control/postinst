@@ -1,16 +1,5 @@
 #!/bin/sh
 [ "${IPKG_NO_SCRIPT}" = "1" ] && exit 0
 [ -s ${IPKG_INSTROOT}/lib/functions.sh ] || exit 0
-
-if [ ! -f /etc/config/wol-forwarder ]; then
-  touch /etc/config/wol-forwarder
-  uci set wol-forwarder.main=main
-  uci set wol-forwarder.main.addr="0.0.0.0"
-  uci set wol-forwarder.main.port="1999"
-  uci set wol-forwarder.main.baddr="255.255.255.255"
-  uci set wol-forwarder.main.bport="9"
-  uci commit wol-forwarder
-fi
-
 . ${IPKG_INSTROOT}/lib/functions.sh
 default_postinst $0 $@
