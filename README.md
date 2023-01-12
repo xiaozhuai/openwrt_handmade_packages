@@ -10,7 +10,7 @@
 
 ### dnsmasq-dhcp-boot
 
-配置`dhcp-boot`以实现网络启动功能(ipxe)，主要用于配合群辉等nas使用。
+配置`dhcp-boot`以实现网络启动功能(ipxe)，主要用于配合群晖等nas使用。
 
 配置文件 `/etc/dnsmasq_dhcp_boot.conf`
 
