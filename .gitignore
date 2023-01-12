@@ -1,6 +1,4 @@
 .idea/
 dist/
 .DS_Store
-packages/lego/data/usr/bin/lego
-packages/supervisord/data/usr/bin/supervisord
-packages/wol-forwarder/data/usr/bin/wol-forwarder
+tools/po2lmo
