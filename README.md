@@ -39,3 +39,9 @@ go实现的`supervisord`, 在`/etc/supervisor.d`中添加配置文件
 ### wol-forwarder
 
 WOL远程开机魔术包转发, 配置`/etc/config/wol-forwarder`
+
+### luci-app-aliddns
+
+来源于 [honwen/luci-app-aliddns](https://github.com/honwen/luci-app-aliddns)
+
+无任何修改，仅仅是使其支持handmade集成编译
