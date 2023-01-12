@@ -1,19 +1,22 @@
 packages_dir=packages
 dist_dir=dist
 
-all: wol-forwarder supervisord dnsmasq-dhcp-boot lego
+.PHONY: all help dnsmasq-dhcp-boot lego supervisord wol-forwarder
+
+all: dnsmasq-dhcp-boot lego supervisord wol-forwarder
 
 help:
-	@echo "targets: wol-forwarder supervisord dnsmasq-dhcp-boot lego"
-
-wol-forwarder:
-	@./build.sh ${packages_dir}/$@ ${dist_dir}
-
-supervisord:
-	@./build.sh ${packages_dir}/$@ ${dist_dir}
+	@echo "targets: dnsmasq-dhcp-boot lego supervisord wol-forwarder"
 
 dnsmasq-dhcp-boot:
 	@./build.sh ${packages_dir}/$@ ${dist_dir}
 
 lego:
 	@./build.sh ${packages_dir}/$@ ${dist_dir}
+
+supervisord:
+	@./build.sh ${packages_dir}/$@ ${dist_dir}
+
+wol-forwarder:
+	@./build.sh ${packages_dir}/$@ ${dist_dir}
+

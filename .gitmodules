@@ -1,0 +1,9 @@
+[submodule "packages/wol-forwarder/wol-forwarder"]
+	path = packages/wol-forwarder/wol-forwarder
+	url = https://github.com/xiaozhuai/docker-wol-forwarder
+[submodule "packages/supervisord/supervisord"]
+	path = packages/supervisord/supervisord
+	url = https://github.com/ochinchina/supervisord
+[submodule "packages/lego/lego"]
+	path = packages/lego/lego
+	url = https://github.com/go-acme/lego

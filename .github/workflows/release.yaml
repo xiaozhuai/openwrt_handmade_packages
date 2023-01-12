@@ -1,0 +1,23 @@
+name: release
+
+on:
+    push:
+        tags: [ "*" ]
+
+jobs:
+    docker:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v3
+                with:
+                    submodules: recursive
+            -   name: Build
+                run: |
+                    make all
+            -   name: Create release
+                uses: ncipollo/release-action@v1
+                with:
+                    artifacts: "dist/*.ipk"
