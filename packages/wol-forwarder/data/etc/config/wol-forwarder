@@ -1,6 +1,0 @@
-
-config main 'main'
-	option addr '0.0.0.0'
-	option port '1999'
-	option baddr '255.255.255.255'
-	option bport '9'
