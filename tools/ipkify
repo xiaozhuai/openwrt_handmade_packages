@@ -55,15 +55,10 @@ unset line
 [ -z "${pkg_arch}" ] && echo "Field \"Architecture\" missing in control file" && exit 1
 
 cache_dir="/tmp/build_cache_${pkg_name}"
-if [ -d "${cache_dir}" ]; then
-  mkdir -p "${cache_dir}"
-else
-  rm -rf "${cache_dir}"
-  mkdir -p "${cache_dir}"
-fi
+rm -rf "${cache_dir}"
+mkdir -p "${cache_dir}"
 
-rm -f "${cache_dir}/debian-binary"
-cp -f debian-binary "${cache_dir}"/
+echo "2.0" > "${cache_dir}/debian-binary"
 
 if [ -f "Makefile" ]; then
   make
