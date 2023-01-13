@@ -1,5 +1,5 @@
 Package: luci-app-aliddns
-Version: 0.4.0-1
+Version: 0.4.0-2
 Depends: libc, openssl-util, curl
 Source: /root/github/chenhw2/luci-app-aliddns
 License: MIT

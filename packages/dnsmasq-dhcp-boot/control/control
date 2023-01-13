@@ -1,5 +1,5 @@
 Package: dnsmasq-dhcp-boot
-Version: 2023.1.12-10
+Version: 2023.1.13-4
 Description: Config dhcp-boot for dnsmasq
 Architecture: all
 Maintainer: xiaozhuai <798047000@qq.com>
