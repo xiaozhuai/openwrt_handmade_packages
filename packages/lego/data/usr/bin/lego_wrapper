@@ -9,6 +9,7 @@ lego_create() {
   /usr/bin/lego -a \
     --path "${LEGO_PATH}" \
     --email "${LEGO_EMAIL}" \
+    --key-type "${LEGO_KEY_TYPE}" \
     ${LEGO_CHALLENGE_OPTIONS} \
     --domains "${domain}" \
     run \
@@ -21,6 +22,7 @@ lego_renew() {
   /usr/bin/lego -a \
     --path "${LEGO_PATH}" \
     --email "${LEGO_EMAIL}" \
+    --key-type "${LEGO_KEY_TYPE}" \
     ${LEGO_CHALLENGE_OPTIONS} \
     --domains "${domain}" \
     renew \
