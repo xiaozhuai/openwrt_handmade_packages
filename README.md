@@ -38,6 +38,12 @@ Keep simple and stupid.
 
 脚本接受3个参数，依次是：
 
+### luci-app-aliddns
+
+来源于 [honwen/luci-app-aliddns](https://github.com/honwen/luci-app-aliddns)
+
+无任何修改，仅仅是使其支持handmade集成编译
+
 1. `create|renew`, 用于标识是创建证书还是续期证书
 2. 证书路径
 3. 证书秘钥路径
@@ -52,8 +58,3 @@ go实现的`supervisord`, 在`/etc/supervisor.d`中添加配置文件
 
 WOL远程开机魔术包转发, 配置`/etc/config/wol-forwarder`
 
-### luci-app-aliddns
-
-来源于 [honwen/luci-app-aliddns](https://github.com/honwen/luci-app-aliddns)
-
-无任何修改，仅仅是使其支持handmade集成编译

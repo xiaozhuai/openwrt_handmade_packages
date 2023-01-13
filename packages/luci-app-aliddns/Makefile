@@ -13,3 +13,6 @@ luci-app-aliddns:
 	@cp -rf luci-app-aliddns/files/luci data/usr/lib/lua/
 	@mkdir -p data/usr/lib/lua/luci/model/cbi/aliddns
 	@[ -d data/usr/lib/lua/luci/i18n ] && po2lmo_all -c -i data/usr/lib/lua/luci/i18n
+
+clean:
+	@rm -rf data

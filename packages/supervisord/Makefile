@@ -11,3 +11,6 @@ all: supervisord
 supervisord:
 	@mkdir -p data/usr/bin/
 	@cd supervisord && go mod download && go build -tags release -ldflags "-s -w" -a -o ../data/usr/bin/supervisord
+
+clean:
+	@rm -f ../data/usr/bin/supervisord

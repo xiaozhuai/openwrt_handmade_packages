@@ -11,3 +11,6 @@ all: wol-forwarder
 wol-forwarder:
 	@mkdir -p data/usr/bin/
 	@cd wol-forwarder && go build -ldflags "-s -w" -a -o ../data/usr/bin/wol-forwarder .
+
+clean:
+	@rm -f ../data/usr/bin/wol-forwarder

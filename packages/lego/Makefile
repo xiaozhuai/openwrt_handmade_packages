@@ -11,3 +11,6 @@ all: lego
 lego:
 	@mkdir -p data/usr/bin/
 	@cd lego && go mod download && SHA="$(git rev-parse HEAD)" && go build -trimpath -ldflags '-X "main.version=${SHA}" -s -w' -o ../data/usr/bin/lego ./cmd/lego/
+
+clean:
+	@rm -f ../data/usr/bin/lego
