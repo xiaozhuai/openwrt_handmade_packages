@@ -4,7 +4,7 @@ set -e
 . /etc/lego/env
 
 if [ -z "${LEGO_EMAIL}" ]; then
-  echo "LEGO_EMAIL is empty, please specify it in ${LEGO_ROOT}/env"
+  echo "LEGO_EMAIL is empty, please specify it in ${LEGO_PATH}/env"
 fi
 
 [ ! -d "${LEGO_PATH}/hooks" ] && mkdir -p "${LEGO_PATH}/hooks"
@@ -34,15 +34,75 @@ lego_renew() {
     --renew-hook="${hook}"
 }
 
-domain="$1"
-domain_file_name="$(echo "${domain}" | sed "s/\*/_/g")"
-crt_file="${LEGO_PATH}/certificates/${domain_file_name}.crt"
-if [ ! -e "${crt_file}" ]; then
-  echo "Create crt for ${domain}"
-  hook="${LEGO_PATH}/hook_entrypoint_create.sh"
-  lego_create "${domain}" "${hook}"
-else
-  echo "Renew crt for ${domain}"
-  hook="${LEGO_PATH}/hook_entrypoint_renew.sh"
-  lego_renew "${domain}" "${hook}"
+lego_run() {
+  domain="$1"
+  domain_file_name="$(echo "${domain}" | sed "s/\*/_/g")"
+  crt_file="${LEGO_PATH}/certificates/${domain_file_name}.crt"
+  if [ ! -e "${crt_file}" ]; then
+    echo "Create crt for ${domain}"
+    hook="${LEGO_PATH}/hook_entrypoint_create.sh"
+    lego_create "${domain}" "${hook}"
+  else
+    echo "Renew crt for ${domain}"
+    hook="${LEGO_PATH}/hook_entrypoint_renew.sh"
+    lego_renew "${domain}" "${hook}"
+  fi
+}
+
+domain=""
+domains_file=""
+add_cron_jobs=0
+rm_cron_jobs=0
+
+print_usage() {
+  echo "Usage: $(basename "$0") [option]..."
+  echo "Options:"
+  echo "  -n    Domain"
+  echo "  -f    File contains domains"
+  echo "  -a    Add cron jobs"
+  echo "  -r    Remove cron jobs"
+}
+
+while getopts ':n:f:ar' OPTION; do
+  case "${OPTION}" in
+  n)
+    domain="${OPTARG}"
+    ;;
+  f)
+    domains_file="${OPTARG}"
+    ;;
+  a)
+    add_cron_jobs=1
+    ;;
+  r)
+    rm_cron_jobs=1
+    ;;
+  ?)
+    print_usage
+    exit 1
+    ;;
+  esac
+done
+
+if [ "${rm_cron_jobs}" = 1 ]; then
+  sed -i '/lego_wrapper/d' /etc/crontabs/root >/dev/null 2>&1
+  exit 0
+fi
+
+if [ -z "${domain}" ] && [ -z "${domains_file}" ]; then
+  print_usage
+  exit 1
+fi
+
+if [ -n "${domain}" ]; then
+  lego_run "${domain}"
+  [ "${add_cron_jobs}" = 1 ] && echo "${LEGO_CRON_CONF} /usr/bin/lego_wrapper -n \"${domain}\" >>/var/log/lego.log 2>&1" >>/etc/crontabs/root
+fi
+
+if [ -n "${domains_file}" ]; then
+  while IFS= read -r domain; do
+    domain="$(echo "${domain}" | tr -d '\r')"
+    lego_run "${domain}"
+  done <"${domains_file}"
+  [ "${add_cron_jobs}" = 1 ] && echo "${LEGO_CRON_CONF} /usr/bin/lego_wrapper -f \"${domains_file}\" >>/var/log/lego.log 2>&1" >>/etc/crontabs/root
 fi
