@@ -3,12 +3,6 @@ set -e
 
 . /etc/lego/env
 
-if [ -z "${LEGO_EMAIL}" ]; then
-  echo "LEGO_EMAIL is empty, please specify it in ${LEGO_PATH}/env"
-fi
-
-[ ! -d "${LEGO_PATH}/hooks" ] && mkdir -p "${LEGO_PATH}/hooks"
-
 lego_create() {
   domain="$1"
   hook="$2"
@@ -93,6 +87,12 @@ if [ -z "${domain}" ] && [ -z "${domains_file}" ]; then
   print_usage
   exit 1
 fi
+
+if [ -z "${LEGO_EMAIL}" ]; then
+  echo "LEGO_EMAIL is empty, please specify it in ${LEGO_PATH}/env"
+fi
+
+[ ! -d "${LEGO_PATH}/hooks" ] && mkdir -p "${LEGO_PATH}/hooks"
 
 if [ -n "${domain}" ]; then
   lego_run "${domain}"
