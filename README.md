@@ -38,17 +38,17 @@ Keep simple and stupid.
 
 脚本接受3个参数，依次是：
 
-### luci-app-aliddns
-
-来源于 [honwen/luci-app-aliddns](https://github.com/honwen/luci-app-aliddns)
-
-无任何修改，仅仅是使其支持handmade集成编译
-
 1. `create|renew`, 用于标识是创建证书还是续期证书
 2. 证书路径
 3. 证书秘钥路径
 
 示例钩子脚本位于`/etc/lego/hooks/default.sh`
+
+### luci-app-aliddns
+
+来源于 [honwen/luci-app-aliddns](https://github.com/honwen/luci-app-aliddns)
+
+无任何修改，仅仅是使其支持handmade集成编译
 
 ### supervisord
 
