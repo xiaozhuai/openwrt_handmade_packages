@@ -6,22 +6,26 @@ EXTRA_HELP="        status          Service status"
 
 . /etc/lego/env
 
-remove_jobs() {
+remove_cron_job() {
   sed -i '/lego_wrapper/d' /etc/crontabs/root >/dev/null 2>&1
 }
 
-start() {
-  remove_jobs
-  [ ! -f /etc/crontabs/root ] && mkdir -p /etc/crontabs && touch /etc/crontabs/root
-  /usr/bin/lego_wrapper -a -f "${LEGO_PATH}/domains" >>/var/log/lego.log 2>&1 &
+add_cron_job() {
+  remove_cron_job
   echo "${LEGO_CRON_CONF} /usr/bin/lego_wrapper -f \"${LEGO_PATH}/domains\" >>/var/log/lego.log 2>&1" >>/etc/crontabs/root
+}
+
+start() {
+  [ ! -f /etc/crontabs/root ] && mkdir -p /etc/crontabs && touch /etc/crontabs/root
+  /usr/bin/lego_wrapper -f "${LEGO_PATH}/domains" >>/var/log/lego.log 2>&1 &
+  add_cron_job
   if [ "$(/etc/init.d/cron status)" = "running" ]; then
     /etc/init.d/cron reload
   fi
 }
 
 stop() {
-  remove_jobs
+  remove_cron_job
   if [ "$(/etc/init.d/cron status)" = "running" ]; then
     /etc/init.d/cron reload
   fi
